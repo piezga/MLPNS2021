@@ -14,7 +14,6 @@ for i in range(1,maxSize):
     mean = numbers.mean()
     means = np.append(means,mean)
     
-print(means)
 
 
 plt.scatter(sizes,means)
