@@ -1,23 +1,15 @@
-import scipy.stats as sps
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
+import matplotlib.pyplot as plt
+import sklearn as skl
+from sklearn import cluster
+import scipy as sp
+from scipy import spatial
 
-eqdata = pd.read_csv("https://raw.githubusercontent.com/fedhere/MLPNS2021/main/NHRT/earthquakes.csv", sep=" ")
+#index i <-> gene i+1
 
-#rename columns
+genes = pd.read_csv("https://raw.githubusercontent.com/fedhere/DSPS/master/HW10/kidpackgenes.csv",
+                    index_col=(0))
+scaledgenes = skl.preprocessing.scale(genes)
 
-eqdata.rename({"#YYY/MM/DD" : "date",
-               "Unnamed: 5" : "mag",
-               "HH:mm:SS.ss": "time"},axis=1)[["date","time","mag"]]
-
-#data['HH:mm:SS.ss'] = data['HH:mm:SS.ss'].str.replace('60.00', '59.99')
-
-for i in range(len(eqdata["time"])):
-    if eqdata.iloc[i].time.endswith("60.00"):
-        print(eqdata.iloc[i].time)
-        print(eqdata.iloc[i].time[:6] + '59.99')
-        eqdata["time"][i] = eqdata.iloc[i].time[:6] + "59.99"
-        
-
-pd.to_datetime(eqdata['time'])
+#projection
